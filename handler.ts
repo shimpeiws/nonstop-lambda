@@ -24,12 +24,13 @@ export const helloWithException = (_event, _context, callback) => {
 export const connectToRDB = async (_event, _context, callback) => {
   const pgClient = new Client({
     host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
     user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
+    password: process.env.DB_PASSWORD,
+    database: "postgres"
   });
   await pgClient.connect();
   const res = await pgClient.query("SELECT current_timestamp");
+  console.info("res", res);
   await callback(null, {
     statusCode: 200,
     body: JSON.stringify({

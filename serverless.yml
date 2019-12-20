@@ -10,6 +10,18 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: ap-northeast-1
+  vpc:
+    securityGroupIds:
+      - YOUR_SECURITY_GROUP_ID
+    subnetIds:
+      - YOUR_SUBNET_ID_01
+      - YOUR_SUBNET_ID_02
+  environment:
+    DB_HOST: YOUR_DB_HOST
+    DB_PORT: YOUR_DB_PORT
+    DB_USER: YOUR_DB_USER
+    DB_PASSWORD: YOUR_DB_PASSWORD
+    DB_DATABASE: YOUR_DB_DATABASE
 
 functions:
   hello:
@@ -24,3 +36,9 @@ functions:
       - http:
           method: get
           path: hello-with-exception
+  connectToRDB:
+    handler: handler.connectToRDB
+    events:
+      - http:
+          method: get
+          path: connect-to-rdb
